@@ -16,35 +16,73 @@
 .mood-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  width: 80%;
 }
 
  .mood-block {
   flex-grow: 0;
-  width: 20%;
+  color: #fff;
+  width: 15%;
   height: 50px;
-  border: 1px solid black;
+  border: none;
+  padding: 0.84em 1.47em;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
  }
 
- .past-date {
-   background: white;
+ .past-date, .today {
+  background-color: #414347;
+  text-shadow: 0 1px 1px #ccc;
+  -webkit-box-shadow: 0 5px 0 #23272a,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #23272a,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #23272a,0px 7px 3px rgba(0,0,0,0.25);
+
  }
 
 .future-date {
-  background: #BFCAD3;
+  background-color: #BFCAD3;
+  text-shadow: 0 1px 1px #72797e;
+  -webkit-box-shadow: 0 5px 0 #858d93,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #858d93,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #858d93,0px 7px 3px rgba(0,0,0,0.25);
 }
 
 .happy {
-  background:#aaf6b1;
+  background-color: #96CEB4;
+  text-shadow: 0 1px 1px #b25900;
+  -webkit-box-shadow: 0 5px 0 #87b9a2,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #87b9a2,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #87b9a2,0px 7px 3px rgba(0,0,0,0.25);
+
 }
 
 .sad {
-  background: #617b92;
+  background-color: #005b96;
+  text-shadow: 0 1px 1px #b25900;
+  -webkit-box-shadow: 0 5px 0 #03396c,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #03396c,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #03396c,0px 7px 3px rgba(0,0,0,0.25);
+
 }
 
 .anxious {
-  background: #fff2c8;
+  background-color: #ffcc5c;
+  text-shadow: 0 1px 1px #b25900;
+  -webkit-box-shadow: 0 5px 0 #e5b752,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #e5b752,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #e5b752,0px 7px 3px rgba(0,0,0,0.25);
 }
 
 .angry {
-  background: #A10505;
+  background-color: #EC5637;
+  text-shadow: 0 1px 1px #b25900;
+  -webkit-box-shadow: 0 5px 0 #C43012,0 7px 2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 5px 0 #C43012,0 7px 2px rgba(0,0,0,0.25);
+  box-shadow: 0 5px 0 #C43012,0px 7px 3px rgba(0,0,0,0.25);
 }

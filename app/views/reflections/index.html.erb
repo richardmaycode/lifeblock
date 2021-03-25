@@ -5,6 +5,10 @@
 </p>
 <div class="mood-container">
   <% (@date.beginning_of_month..@date.end_of_month).each do |date| %>
-    <%= content_tag :div, nil, class: Reflection.display_classes_for(date, @reflections) %>
+    <%= content_tag :div, class: Reflection.display_classes_for(date, @reflections) do %>
+      <%= content_tag :span do %>
+        <%= date.day %> <br> <%= Reflection.label_for(date, @reflections) %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

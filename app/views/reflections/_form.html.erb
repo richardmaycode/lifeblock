@@ -1,0 +1,9 @@
+<%= form_with(model: reflection) do |f| %>
+  <%= f.hidden_field :completed, value: reflection.completed %>
+  <%= f.hidden_field :creator_id, value: 1 %>
+  <%= f.hidden_field :account_id, value: 1 %>
+  <%= f.select :mood, options_for_select(Reflection.moods.keys.map { |r| [r, r] }) %>
+  <%= f.text_area :note %>
+  
+  <%= f.submit %>
+<% end %>

@@ -1,7 +1,7 @@
 <h1>Reflections#index</h1>
 <% @reflections.load %>
 <p>
-  Days Logged: <%= @reflections.size %> (<%= number_to_percentage((@reflections.size.to_f / Time.days_in_month(@date.month, @date) * 100), precision: 0) %>)
+  Days Logged in <%= @date.strftime("%B") %>: <%= @reflections.size %> (<%= number_to_percentage((@reflections.size.to_f / Time.days_in_month(@date.month, @date.year) * 100), precision: 0) %>)
 </p>
 <div class="mood-container">
   <% (@date.beginning_of_month..@date.end_of_month).each do |date| %>

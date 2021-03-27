@@ -62,6 +62,26 @@ ActiveRecord::Schema.define(version: 2021_03_24_174045) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "color_schemes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "color", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "mosaic_settings", force: :cascade do |t|
+    t.boolean "show_numbers", default: true, null: false
+    t.boolean "show_labels", default: true, null: false
+    t.boolean "show_upcoming_dates", default: true, null: false
+    t.boolean "show_skipped_days", default: true, null: false
+    t.bigint "color_scheme_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_mosaic_settings_on_account_id"
+    t.index ["color_scheme_id"], name: "index_mosaic_settings_on_color_scheme_id"
+  end
+
   create_table "reflections", force: :cascade do |t|
     t.date "completed", null: false
     t.integer "mood", null: false
@@ -90,6 +110,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_174045) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "mosaic_settings", "accounts"
+  add_foreign_key "mosaic_settings", "color_schemes"
   add_foreign_key "reflections", "accounts"
   add_foreign_key "reflections", "users", column: "creator_id"
 end

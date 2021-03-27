@@ -1,9 +1,11 @@
 class ReflectionsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_user
   before_action :set_reflection, only: %i[edit update]
   def index
     @date = params.fetch(:date, Date.today).to_date
 
-    @reflections = Reflection.where(completed: @date.beginning_of_month..@date.end_of_month)
+    @reflections = @current_user.reflections.where(completed: @date.beginning_of_month..@date.end_of_month)
   end
 
   def new
@@ -23,7 +25,9 @@ class ReflectionsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @reflection
+  end
 
   def update
     respond_to do |format|
@@ -36,6 +40,10 @@ class ReflectionsController < ApplicationController
   end
 
   private
+
+  def set_user
+    @current_user = current_user
+  end
 
   def set_reflection
     @reflection = Reflection.find(params[:id])

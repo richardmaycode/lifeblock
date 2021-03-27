@@ -23,6 +23,7 @@ gem 'turbo-rails'
 gem 'devise'
 gem 'high_voltage', '~> 3.1'
 gem "view_component", require: "view_component/engine"
+gem "pundit"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

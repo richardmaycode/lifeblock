@@ -1,9 +1,18 @@
 <%= form_with(model: reflection) do |f| %>
   <%= f.hidden_field :completed, value: reflection.completed %>
-  <%= f.hidden_field :creator_id, value: 1 %>
-  <%= f.hidden_field :account_id, value: 1 %>
+  <%= f.hidden_field :creator_id, value: @current_user.id %>
+  <% if @current_user.account.admin? %>
+    <%= f.label :account_id, "Account" %>
+    <%= f.select :account_id, options_for_select(Account.all.map { |a| [a.owner.email, a.id]}, reflection.account_id) %>
+    <br>
+  <% else %>
+    <%= f.hidden_field :account_id, value: @current_user.account.id %>
+  <% end %>
+  <%= f.label :mood, "mood" %>
   <%= f.select :mood, options_for_select(Reflection.moods.keys.map { |r| [r, r] }) %>
+  <br>
+  <%= f.label :note, "note" %>
   <%= f.text_area :note %>
-  
+  <br>
   <%= f.submit %>
 <% end %>

@@ -4,7 +4,7 @@ class MosaicSettingsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @mosaic_setting.update(mosiac_setting_params)
+      if @mosaic_setting.update(mosaic_setting_params)
         format.html { redirect_to reflections_path, notice: "Mosiac settings updated!" }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -13,18 +13,9 @@
  *= require_tree .
  *= require_self
  */
-.mood-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: 80%;
-}
-
  .mood-block {
-  flex-grow: 0;
   color: #fff;
-  width: 15%;
-  height: 40px;
+  height: 60px;
   border: none;
   padding: 0.84em 1.47em;
   font-size: 13px;

@@ -1,0 +1,17 @@
+<h1>MosiacStatistics#show</h1>
+<p>Find me in app/views/mosiac_statistics/show.html.erb</p>
+
+<% @reflections.load %>
+<turbo-frame id="mosaic_statistics">
+  <p>
+  Days Logged: <%= @reflections.size %> (<%= number_to_percentage((@reflections.size.to_f / @date_range.count * 100), precision: 0) %>)
+  <br>
+  Happy: <%= @reflections.happy.size %>
+  <br>
+  Sad: <%= @reflections.sad.size %>
+  <br>
+  Angry: <%= @reflections.angry.size %>
+  </p>
+</turbo-frame>
+
+

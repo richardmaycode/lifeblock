@@ -1,14 +1,67 @@
-<h1>Reflections#index</h1>
 <% @reflections.load %>
-<p>
-  Days Logged in <%= @date.strftime("%B") %>: <%= @reflections.size %> (<%= number_to_percentage((@reflections.size.to_f / Time.days_in_month(@date.month, @date.year) * 100), precision: 0) %>)
-</p>
-<div class="mood-container">
-  <% (@date.beginning_of_month..@date.end_of_month).each do |date| %>
-    <%= content_tag :div, class: Reflection.display_classes_for(date, @reflections) do %>
-      <%= content_tag :span do %>
-        <%= date.day %> <br> <%= Reflection.label_for(date, @reflections) %>
-      <% end %>
-    <% end %>
-  <% end %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1>Your Mosaic</h1>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <main class="col-sm-12 col-lg-8">
+      <div class="row row-cols-1 row-cols-sm-5 gx-3 gy-3" id="mosaic">
+        <% (@date_range).each do |date| %>
+          <%= content_tag :div, class: "col" do %>
+            <%= content_tag :div, class: Reflection.display_classes_for(date, @reflections) do %>
+              <%= content_tag :span do %>
+                <%= date.day %> <%= Reflection.label_for(date, @reflections) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </main>
+    <aside class="col-md-4">
+      <div class="row row-cols-1">
+        <div class="col">
+          <%= form_with url: mosaic_date_range_select_path, method: :get, class: "mb-3" do |f| %>
+            <div class="row">
+              <div class="col">
+                <%= f.label :start_date, "From" %>
+                <br>
+                <input type="date" value="<%= @date_range.first %>" class="form-control" >
+              </div>
+              <div class="col">
+                <%= f.label :start_date, "To" %>
+                <br>
+                <input type="date" value="<%= @date_range.last %>" class="form-control" >
+              </div>
+            </div>
+          <% end %>        
+        </div>
+        <div class="col" id="stats">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Stats</h5>
+              <p class="card-text">
+                <% if @date_range.count > 31 %>
+                  <turbo-frame id="mosaic_statistics" src="mosaic/statistics?start_date=<%= @date_range.first %>&end_date=<%= @date_range.last %>" >
+                  </turbo-frame>
+                <% else %>
+                  <turbo-frame id="mosaic_statistics" src="mosaic/statistics?date=<%= @date %>" ></turbo-frame>
+                <% end %>              
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col mt-3" id="log-cta">
+          <% if Reflection.present_on?(@current_user.account,Time.zone.today) %>
+            <turbo-frame id="reflection_show" src="reflections/<%= Reflection.get_id_on(@current_user.account, Time.zone.today) %>"></turbo-frame> 
+          <% else %>
+            <%= link_to "Log Today's Reflection", new_reflection_path(date: Time.zone.today), class: "btn btn-primary btn-wide" %>
+          <% end %>
+        </div>
+      </div>
+    </aside>
+  </div>
 </div>

@@ -1,12 +1,15 @@
 class ReflectionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :set_reflection, only: %i[edit update]
+  before_action :set_reflection, only: %i[show edit update]
+  before_action :set_date_and_range, only: %i[index]
   def index
-    @date = params.fetch(:date, Date.today).to_date
+    # @date = params.fetch(:date, Date.today).to_date
 
-    @reflections = @current_user.reflections.where(completed: @date.beginning_of_month..@date.end_of_month)
+    @reflections = @current_user.reflections.where(completed: @date_range)
   end
+
+  def show; end
 
   def new
     date = params.fetch(:date, Date.today)
@@ -49,6 +52,15 @@ class ReflectionsController < ApplicationController
     @reflection = Reflection.find(params[:id])
   end
 
+  def set_date_and_range
+    if params[:start_date].present?
+      @date = params[:start_date].to_date
+      @date_range = params[:start_date].to_date..params[:end_date].to_date
+    else
+      @date = params.fetch(:date, Date.today).to_date
+      @date_range = @date.beginning_of_month..@date.end_of_month
+    end
+  end
   def reflection_params
     params.require(:reflection).permit(:completed, :mood, :note, :account_id, :creator_id)
   end

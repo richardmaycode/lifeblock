@@ -41,4 +41,14 @@ class Reflection < ApplicationRecord
 
     "No Record"
   end
+
+  def self.present_on?(account, date)
+    return false unless where(account: account, completed: date).exists?
+
+    true
+  end
+
+  def self.get_id_on(account, date)
+    where(account: account, completed: date).first.id
+  end
 end

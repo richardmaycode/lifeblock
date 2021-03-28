@@ -1,0 +1,26 @@
+<turbo-frame id="reflection_show">
+  <div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">
+          <% if @reflection.completed == Time.zone.today %>
+            Today's Reflection
+          <% else %>
+            Reflection for: <%= @reflection.completed.strftime("%a %m/%d/%Y") %>
+          <% end %>
+        </h5>
+        <p class="card-text">
+          Mood: <%= @reflection.mood.titleize %>
+          <br>
+          Journal Entry: 
+          <%= @reflection.note.blank? ? "No input" : @reflection.note %>
+          <br>
+          <div class="d-grid">
+            <%= link_to "Edit Reflection", edit_reflection_path(@reflection), class: "btn btn-primary btn-wide mt-4" %>
+          </div>
+        </p>
+    </div>
+  </div>
+
+
+
+</turbo-frame>

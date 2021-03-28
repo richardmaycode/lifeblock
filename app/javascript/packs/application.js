@@ -13,3 +13,6 @@ ActiveStorage.start()
 
 require("trix")
 require("@rails/actiontext")
+
+import "bootstrap"
+import "../stylesheets/application"

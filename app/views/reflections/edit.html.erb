@@ -1,3 +1,9 @@
-<h1>Reflections#edit</h1>
-<p>Find me in app/views/reflections/edit.html.erb</p>
-<%= render partial: "form", locals: { reflection: @reflection } %>
+<%= render FormComponent.new do |f| %>
+  <% f.header(title: "Update Reflection") %>
+  <%= f.body(frame_id: "reflection_form") do |b| %>
+    <%= render partial: "form", locals: { reflection: @reflection } %>
+  <% end %>
+<% end %>
+
+
+

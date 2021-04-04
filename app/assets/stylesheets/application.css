@@ -77,3 +77,7 @@
   -moz-box-shadow: 0 5px 0 #C43012,0 7px 2px rgba(0,0,0,0.25);
   box-shadow: 0 5px 0 #C43012,0px 7px 3px rgba(0,0,0,0.25);
 }
+
+.form-text-area {
+  min-height: 15rem;
+}

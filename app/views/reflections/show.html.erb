@@ -1,22 +1,17 @@
-<turbo-frame id="reflection_show">
+<turbo-frame id="reflection_show" target="_top">
   <div class="card shadow-sm">
     <div class="card-body">
-        <h5 class="card-title">
-          <% if @reflection.completed == Time.zone.today %>
-            Today's Reflection
-          <% else %>
-            Reflection for: <%= @reflection.completed.strftime("%a %m/%d/%Y") %>
-          <% end %>
-        </h5>
+        <h5 class="card-title">Reflection Details</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= @reflection.completed.strftime("%a %m/%d/%Y") %></h6>
         <p class="card-text">
           Mood: <%= @reflection.mood.titleize %>
           <br>
           Journal Entry: 
-          <%= @reflection.note.blank? ? "No input" : @reflection.note %>
+          <%= @reflection.note.blank? ? "No input" : "Saved" %>
           <br>
-          <div class="d-grid">
-            <%= link_to "Edit Reflection", edit_reflection_path(@reflection), class: "btn btn-primary btn-wide mt-4" %>
-          </div>
+          <%= link_to "Show", reflection_path(@reflection), class: "link-primary" %>
+          <%= link_to "Edit", edit_reflection_path(@reflection), class: "link-primary" %>
+          <%= link_to "Delete", reflection_path(@reflection), method: :delete, data: { confirm: "Are you sure?" },class: "link-danger" %>
         </p>
     </div>
   </div>

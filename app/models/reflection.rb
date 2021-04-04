@@ -1,6 +1,7 @@
 class Reflection < ApplicationRecord
   REFLECTION_MOODS = %w[happy sad anxious angry].freeze
-
+  has_rich_text :note
+  
   belongs_to :account
   belongs_to :creator, class_name: "User"
 
@@ -20,14 +21,23 @@ class Reflection < ApplicationRecord
     errors.add(:completed, "reflection cannot be in the future")
   end
 
+  def self.select_from_collection(date, reflections)
+    selection = reflections.select { |x| x.completed == date }
+
+    return nil if selection.empty?
+
+    selection.first
+  end
+
   def self.display_classes_for(date, reflections)
-    reflection = reflections.reject { |x| x.completed != date }
+    selection = select_from_collection(date, reflections)
     today = Time.zone.today
+
     display_classes = ["mood-block"]
     display_classes << "future-date" if date > today
     display_classes << "today" if date == today
     display_classes << "past-date" if date < today
-    display_classes << reflection[0][:mood] if reflection.any?
+    display_classes << selection.mood unless selection.nil?
 
     display_classes
   end
@@ -35,6 +45,7 @@ class Reflection < ApplicationRecord
   def self.label_for(date, reflections)
     return if date > Time.zone.today
 
+    # reflection = reflections.select { |x| x.completed = date }
     reflection = reflections.reject { |x| x.completed != date }
 
     return reflection[0][:mood].titleize if reflection.any?

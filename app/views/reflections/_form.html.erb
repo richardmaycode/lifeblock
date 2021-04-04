@@ -1,18 +1,18 @@
 <%= form_with(model: reflection) do |f| %>
   <%= f.hidden_field :completed, value: reflection.completed %>
   <%= f.hidden_field :creator_id, value: @current_user.id %>
-  <% if @current_user.account.admin? %>
-    <%= f.label :account_id, "Account" %>
-    <%= f.select :account_id, options_for_select(Account.all.map { |a| [a.owner.email, a.id]}, reflection.account_id) %>
-    <br>
+  <% if current_user.account.admin? %>
+    <%= f.label :account_id, "Account", class: "form-label" %>
+    <%= f.select :account_id, options_for_select(Account.all.map { |a| [a.owner.email, a.id]}, reflection.account_id), class: "form-select" %>
   <% else %>
-    <%= f.hidden_field :account_id, value: @current_user.account.id %>
+    <%= f.hidden_field :account_id, value: current_user.account.id %>
   <% end %>
-  <%= f.label :mood, "mood" %>
-  <%= f.select :mood, options_for_select(Reflection.moods.keys.map { |r| [r, r] }) %>
+  <%= f.label :mood, "Mood", class: "form-label" %>
+  <%= f.select :mood, options_for_select(Reflection.moods.keys.map { |r| [r.titleize, r] }, reflection.mood), { },  { class: "form-select" } %>
   <br>
-  <%= f.label :note, "note" %>
-  <%= f.text_area :note %>
+  <%= f.label :note, "Note", class: "form-label" %>
+  <%= f.rich_text_area :note, class: "form-text-area" %>
   <br>
-  <%= f.submit %>
+  <%= f.submit reflection.new_record? ? "Create reflection" : "Update reflection", class: "btn btn-success" %>
+  <%= link_to "Cancel", reflections_path(date: reflection.completed), class: "btn btn-outline-danger" %>
 <% end %>

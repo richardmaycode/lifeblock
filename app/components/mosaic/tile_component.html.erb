@@ -1,0 +1,7 @@
+<%= content_tag :div, class: "col", id: @reflection.nil? ? "n/a" : dom_id(@reflection), data: { action: "click->show-item#update"} do %>
+  <%= content_tag :div, class: @classes do %>
+    <%= content_tag :span do %>
+      <%= @date.day %> <%= @reflection.mood unless @reflection.nil? %>
+    <% end %>
+  <% end %>
+<% end %> 

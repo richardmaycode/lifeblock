@@ -1,3 +1,6 @@
-<h1>Reflections#new</h1>
-<p>Find me in app/views/reflections/new.html.erb</p>
-<%= render partial: "form", locals: { reflection: @reflection } %>
+<%= render FormComponent.new do |f| %>
+  <% f.header(title: "Create Reflection") %>
+  <%= f.body(frame_id: "reflection_form") do |b| %>
+    <%= render partial: "form", locals: { reflection: @reflection, current_user: @current_user } %>
+  <% end %>
+<% end %>
